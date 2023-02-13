@@ -23,6 +23,10 @@ jobs:
       with:
         credentials_json: ${{ secrets.GCP_SA_KEY }}
 
+    - name: Get Project ID
+      run: |
+        gcloud projects list --format 'value(PROJECT_NUMBER)'
+
     - name: Configure Docker
       run: |
         gcloud auth configure-docker
@@ -39,16 +43,3 @@ jobs:
         --member=serviceAccount:${{ github.event.repository.name }}@${{ env.CLOUDSDK_CORE_PROJECT }}.iam.gserviceaccount.com \
         --role=roles/logging.logWrite
 
-    - name: Build & Publish
-      run: |
-        docker build -t eu.gcr.io/${{ env.CLOUDSDK_CORE_PROJECT }}/${{ github.event.repository.name }} .
-        docker push eu.gcr.io/${{ env.CLOUDSDK_CORE_PROJECT }}/${{ github.event.repository.name }}
-
-    - name: Deploy
-      run: |
-        gcloud run deploy ${{ github.event.repository.name }} --image eu.gcr.io/${{ env.CLOUDSDK_CORE_PROJECT }}/${{ github.event.repository.name }} \
-        --project ${{ env.CLOUDSDK_CORE_PROJECT }} \
-        --region europe-west1 \
-        --service-account ${{ github.event.repository.name }}@${{ env.CLOUDSDK_CORE_PROJECT }}.iam.gserviceaccount.com \
-        --platform managed \
-        --no-allow-unauthenticated;
