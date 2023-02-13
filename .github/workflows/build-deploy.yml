@@ -41,7 +41,7 @@ jobs:
     - name: Role Assign
       run: |
         PROJECT_ID=$(gcloud projects list --format 'value(PROJECT_NUMBER)')
-        gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+        gcloud service-accounts add-iam-policy-binding ${{ github.event.repository.name }} \
         --member=serviceAccount:${{ github.event.repository.name }}@${{ env.CLOUDSDK_CORE_PROJECT }}.iam.gserviceaccount.com \
         --role=roles/iam.serviceaccounts.actAs
 
