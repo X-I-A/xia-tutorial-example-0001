@@ -27,9 +27,8 @@ jobs:
       run: |
         gcloud auth configure-docker
 
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v2
-      with:
-        push: true
-        tags: ${{ github.event.repository.name }}:latest
-        context: .
+    - name: Build & Publish
+      run: |
+        PROJECT_ID=$(gcloud config list --format 'value(core.account)' | sed 's/.*@\(.*\)\.iam\.gserviceaccount.*/\1/')
+        docker build -t eu.gcr.io/${PROJECT_ID}/${{ github.event.repository.name }} .
+        docker push eu.gcr.io/${PROJECT_ID}/${{ github.event.repository.name }}
