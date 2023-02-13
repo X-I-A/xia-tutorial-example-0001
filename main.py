@@ -1,13 +1,9 @@
 import os
 from flask import Flask, render_template
+from xia_puller_flask import PullerApi
 
 app = Flask(__name__)
 app.config.from_object("config." + os.environ.get("XIA_ENV", "prod").title() + "Config")
-
-
-@app.route("/")
-def home():
-    return "Hi"
 
 
 if __name__ == '__main__':

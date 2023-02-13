@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../xia-universe/xia-agent-flask/.idea/xia-agent-flask.iml" filepath="$PROJECT_DIR$/../../xia-universe/xia-agent-flask/.idea/xia-agent-flask.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../xia-universe/xia-api-flask/.idea/xia-api-flask.iml" filepath="$PROJECT_DIR$/../../xia-universe/xia-api-flask/.idea/xia-api-flask.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../xia-universe/xia-puller/.idea/xia-puller.iml" filepath="$PROJECT_DIR$/../../xia-universe/xia-puller/.idea/xia-puller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../xia-universe/xia-puller-flask/.idea/xia-puller-flask.iml" filepath="$PROJECT_DIR$/../../xia-universe/xia-puller-flask/.idea/xia-puller-flask.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/xia-tutorial-example-0001.iml" filepath="$PROJECT_DIR$/.idea/xia-tutorial-example-0001.iml" />
     </modules>
   </component>
