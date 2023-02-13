@@ -32,6 +32,12 @@ jobs:
         docker build -t eu.gcr.io/${{ env.CLOUDSDK_CORE_PROJECT }}/${{ github.event.repository.name }} .
         docker push eu.gcr.io/${{ env.CLOUDSDK_CORE_PROJECT }}/${{ github.event.repository.name }}
 
+    - name: Service Account Creation
+      continue-on-error: true
+      run: |
+        gcloud iam service-accounts create ${{ github.event.repository.name }}@${{ env.CLOUDSDK_CORE_PROJECT }}.iam.gserviceaccount.com \
+        --description="Service Account for Github repository: ${{ github.event.repository.name }}"
+
     - name: Deploy
       run: |
         gcloud run deploy ${{ github.event.repository.name }} --image eu.gcr.io/${{ env.CLOUDSDK_CORE_PROJECT }}/${{ github.event.repository.name }} \
