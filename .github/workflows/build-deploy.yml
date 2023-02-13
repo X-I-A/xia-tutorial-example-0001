@@ -1,17 +1,24 @@
 name: Google Cloud Run Build & Deploy
 
 on:
-  workflow_dispatch
+  push:
+    branches:
+      - master
 
 jobs:
-  deploy:
-
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-    - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@master
+    - name: Set up Google Cloud CLI
+      uses: google-actions/setup-gcloud@v1
+      with:
+        version: latest
+
+    - name: Authenticate with Google Cloud
+      uses: google-actions/auth@v1
       with:
         service_account_key: ${{ secrets.GCP_SA_KEY }}
