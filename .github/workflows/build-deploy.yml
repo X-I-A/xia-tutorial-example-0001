@@ -44,7 +44,7 @@ jobs:
         gcloud projects add-iam-policy-binding ${{ env.CLOUDSDK_CORE_PROJECT }} \
         --member=serviceAccount:${{ github.event.repository.name }}@${{ env.CLOUDSDK_CORE_PROJECT }}.iam.gserviceaccount.com \
         --role=roles/run.invoker
-        gcloud projects add-iam-policy-binding ${{ env.CLOUDSDK_CORE_PROJECT }} \
+        gcloud organizations add-iam-policy-binding 553384217702 \
         --member=serviceAccount:${{ github.event.repository.name }}@${{ env.CLOUDSDK_CORE_PROJECT }}.iam.gserviceaccount.com \
         --role=roles/iam.serviceaccounts.actAs
 
