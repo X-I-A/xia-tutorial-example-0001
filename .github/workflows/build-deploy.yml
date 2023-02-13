@@ -34,7 +34,7 @@ jobs:
 
     - name: Deploy
       run: |
-        gcloud run deploy ${{ github.event.repository.name }} --image gcr.io/${{ env.CLOUDSDK_CORE_PROJECT }}/${{ github.event.repository.name }} \
+        gcloud run deploy ${{ github.event.repository.name }} --image eu.gcr.io/${{ env.CLOUDSDK_CORE_PROJECT }}/${{ github.event.repository.name }} \
         --project ${{ env.CLOUDSDK_CORE_PROJECT }} \
         --region europe-west1 \
         --platform managed \
