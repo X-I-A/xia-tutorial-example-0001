@@ -35,12 +35,14 @@ jobs:
     - name: Service Account Creation
       continue-on-error: true
       run: |
-        gcloud iam service-accounts create ${{ github.event.repository.name }} \
+        PROJECT_ID=$(gcloud projects list --format 'value(PROJECT_NUMBER)')
+        gcloud iam service-accounts create ${{ github.event.repository.name }}@${PROJECT_ID}.iam.gserviceaccount.com \
         --description="Service Account for Github repository: ${{ github.event.repository.name }}";
 
     - name: Role Assign
       run: |
-        gcloud projects add-iam-policy-binding ${{ env.CLOUDSDK_CORE_PROJECT }} \
-        --member=serviceAccount:${{ github.event.repository.name }}@${{ env.CLOUDSDK_CORE_PROJECT }}.iam.gserviceaccount.com \
+        PROJECT_ID=$(gcloud projects list --format 'value(PROJECT_NUMBER)')
+        gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+        --member=serviceAccount:${{ github.event.repository.name }}@$${PROJECT_ID}.iam.gserviceaccount.com \
         --role=roles/logging.logWrite
 
