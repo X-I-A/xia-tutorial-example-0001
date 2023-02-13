@@ -5,6 +5,9 @@ on:
     branches:
       - master
 
+env:
+  GCR_SERVICE_ACCOUNT: ${{ github.event.repository.name }}@${{ env.CLOUDSDK_CORE_PROJECT }}.iam.gserviceaccount.com
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -35,7 +38,7 @@ jobs:
     - name: Service Account Creation
       continue-on-error: true
       run: |
-        gcloud iam service-accounts create ${{ github.event.repository.name }}@${{ env.CLOUDSDK_CORE_PROJECT }}.iam.gserviceaccount.com \
+        gcloud iam service-accounts create ${{ github.event.repository.name }} \
         --description="Service Account for Github repository: ${{ github.event.repository.name }}"
 
     - name: Deploy
