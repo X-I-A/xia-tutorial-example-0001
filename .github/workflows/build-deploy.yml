@@ -23,5 +23,13 @@ jobs:
       with:
         credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-    - name: 'Use gcloud CLI'
-      run: 'gcloud info'
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+        context: .
+
+    - name: Configure Docker
+      run: |
+        gcloud auth configure-docker
