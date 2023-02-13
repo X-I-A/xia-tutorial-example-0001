@@ -33,6 +33,12 @@ jobs:
         gcloud iam service-accounts create ${{ github.event.repository.name }} \
         --description="Service Account for Github repository: ${{ github.event.repository.name }}";
 
+    - name: Role Assign
+      run: |
+        gcloud projects add-iam-policy-binding ${{ env.CLOUDSDK_CORE_PROJECT }} \
+        --member=serviceAccount:${{ github.event.repository.name }}@${{ env.CLOUDSDK_CORE_PROJECT }}.iam.gserviceaccount.com \
+        --role=roles/logging.logWrite
+
     - name: Build & Publish
       run: |
         docker build -t eu.gcr.io/${{ env.CLOUDSDK_CORE_PROJECT }}/${{ github.event.repository.name }} .
@@ -43,5 +49,6 @@ jobs:
         gcloud run deploy ${{ github.event.repository.name }} --image eu.gcr.io/${{ env.CLOUDSDK_CORE_PROJECT }}/${{ github.event.repository.name }} \
         --project ${{ env.CLOUDSDK_CORE_PROJECT }} \
         --region europe-west1 \
+        --service-account ${{ github.event.repository.name }}@${{ env.CLOUDSDK_CORE_PROJECT }}.iam.gserviceaccount.com \
         --platform managed \
         --no-allow-unauthenticated;
