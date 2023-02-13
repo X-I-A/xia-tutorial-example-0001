@@ -36,7 +36,7 @@ jobs:
       continue-on-error: true
       run: |
         PROJECT_ID=$(gcloud projects list --format 'value(PROJECT_NUMBER)')
-        gcloud iam service-accounts create ${{ github.event.repository.name }}@${PROJECT_ID}.iam.gserviceaccount.com \
+        gcloud iam service-accounts create ${{ github.event.repository.name }} \
         --description="Service Account for Github repository: ${{ github.event.repository.name }}";
 
     - name: Role Assign
