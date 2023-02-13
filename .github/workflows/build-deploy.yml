@@ -33,9 +33,9 @@ jobs:
         docker push eu.gcr.io/${{ env.CLOUDSDK_CORE_PROJECT }}/${{ github.event.repository.name }}
 
     - name: Deploy
-        run: |
-          gcloud run deploy ${{ github.event.repository.name }} --image gcr.io/${{ env.CLOUDSDK_CORE_PROJECT }}/${{ github.event.repository.name }} \
-          --project ${{ env.CLOUDSDK_CORE_PROJECT }} \
-          --region europe-west1 \
-          --platform managed \
-          --no-allow-unauthenticated;
+      run: |
+        gcloud run deploy ${{ github.event.repository.name }} --image gcr.io/${{ env.CLOUDSDK_CORE_PROJECT }}/${{ github.event.repository.name }} \
+        --project ${{ env.CLOUDSDK_CORE_PROJECT }} \
+        --region europe-west1 \
+        --platform managed \
+        --no-allow-unauthenticated;
