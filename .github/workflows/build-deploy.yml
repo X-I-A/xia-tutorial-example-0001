@@ -41,9 +41,12 @@ jobs:
     - name: Role Assign
       run: |
         PROJECT_ID=$(gcloud projects list --format 'value(PROJECT_NUMBER)')
-        gcloud service-accounts add-iam-policy-binding ${{ github.event.repository.name }} \
+        gcloud iam service-accounts add-iam-policy-binding ${{ github.event.repository.name }} \
         --member=serviceAccount:${{ github.event.repository.name }}@${{ env.CLOUDSDK_CORE_PROJECT }}.iam.gserviceaccount.com \
         --role=roles/iam.serviceaccounts.actAs
+        gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+        --member=serviceAccount:${{ github.event.repository.name }}@${{ env.CLOUDSDK_CORE_PROJECT }}.iam.gserviceaccount.com \
+        --role=roles/run.invoker
 
     - name: Build & Publish
       run: |
