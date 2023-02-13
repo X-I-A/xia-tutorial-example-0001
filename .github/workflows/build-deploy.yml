@@ -13,19 +13,20 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Google Cloud CLI
-      uses: google-github-actions/setup-gcloud@v1
-      with:
-        version: latest
-
     - name: Authenticate with Google Cloud
       uses: google-github-actions/auth@v1
       with:
         credentials_json: ${{ secrets.GCP_SA_KEY }}
 
+    - name: Set up Google Cloud CLI
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        version: latest
+
     - name: Get Project ID
       run: |
-        gcloud projects list --format 'value(PROJECT_NUMBER)'
+        PROJECT_ID=$(gcloud projects list --format 'value(PROJECT_NUMBER)')
+        echo ${PROJECT_ID}
 
     - name: Configure Docker
       run: |
